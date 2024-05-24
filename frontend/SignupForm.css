@@ -1,0 +1,323 @@
+body {
+    /* font-family: Arial, sans-serif; */
+    margin: 0;
+    padding: 0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 20;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transition: top 0.6s ease;
+    border: 2px solid black;
+    width: 80%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    max-width: 800px;
+}
+
+.modal-content {
+    width: 100%;
+}
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+@keyframes blink {
+    0% {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: rgb(32, 131, 212);
+    }
+
+    100% {
+        border-color: transparent;
+    }
+}
+
+.blinking-border {
+    animation: blink 0.3s ease;
+
+}
+
+
+.dropdown {
+    position: relative;
+    width: 81%;
+    height: 30px;
+    display: inline-block;
+    background-color: white;
+    margin-bottom: 1rem;
+    border-radius: 0.2rem;
+    text-align: left;
+}
+
+
+.passcheckboxes {
+    width: 81%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0.2rem;
+    text-align: left;
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+
+
+
+.inputboxcss {
+    height: 2.5rem;
+    border-radius: 0.2rem;
+    background-color: white;
+    transition: font-size 0.1s ease-in-out;
+    margin-bottom: 1rem;
+    width: 80%;
+    transition: height 0.3s ease;
+    outline: none;
+    border: 0px;
+    font-size: 1.5rem;
+    text-indent: 1rem;
+}
+
+
+.allcontentcontainer {
+    background-color: rgba(0, 0, 0, 0.116);
+    text-align: center;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+}
+
+
+.inputboxcss:focus {
+    /* font-size: 2rem;
+    height: 3.5rem; */
+    outline: 2px solid rgb(30, 118, 233);
+}
+
+
+#dropdownlabel {
+    margin-right: 20%;
+    margin-left: 1rem;
+    font-size: large;
+    font-weight: 400;
+}
+
+
+#difficultyDropdown {
+    height: 30px;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+
+#heading {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+    font-size: 50px;
+    color: #0d6dfd;
+}
+
+
+
+.inputboxcss::placeholder {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.507);
+}
+
+#signupbutton {
+    width: 80%;
+    height: 40px;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #0d6dfd;
+    margin-bottom: 0.5rem;
+    font-size: large;
+    font-weight: 500;
+    color: white;
+}
+
+#signupbutton:hover {
+    width: 80%;
+    height: 40px;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #044ebe;
+    margin-bottom: 0.5rem;
+    font-size: large;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+}
+
+#closebtn {
+    font-size: xx-large;
+    color: grey;
+}
+
+#closebtn:hover {
+    color: black;
+}
+
+
+.tickbox,
+.strongpass {
+    color: rgba(255, 0, 0, 1);
+    ;
+    margin-left: 2%;
+    font-size: 1.2rem;
+    font-family: monospace;
+}
+
+
+#showPasswordCheckbox {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 1.5rem;
+}
+
+
+#passworddiv {
+    margin-bottom: 0.3rem;
+}
+
+.passcheckboxes2 {
+    width: 81%;
+    background-color: white;
+    border-radius: 0.2rem;
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
+    height: 30px;
+}
+
+.passcheckboxes2:hover {
+    width: 81%;
+    background-color: white;
+    border-radius: 0.2rem;
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
+    cursor: pointer;
+    height: 30px;
+}
+
+
+.passcheckboxes3 {
+    width: 81%;
+    background-color: white;
+    border-radius: 0.2rem;
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
+    display: none;
+    font-size: 1.5rem;
+}
+
+
+.options2 {
+    text-align: center;
+    border: 2px solid black;
+    margin-left: 0px;
+    margin-bottom: 2px;
+    height: 30px;
+}
+
+
+.options2:hover {
+    text-align: center;
+    border: 2px solid black;
+    margin-left: 0px;
+    margin-bottom: 2px;
+    background-color: rgba(0, 0, 0, 0.178);
+    cursor: pointer;
+}
+
+#sqans2 {
+    margin-top: 1rem;
+}
+
+.expbox {
+    position: relative;
+    width: 81%;
+    background-color: white;
+    border-radius: 0.2rem;
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
+    height: 65px;
+    font-size: 1.5rem;
+}
+
+.expbox.clicked>.div1 {
+    position: absolute;
+    transform: translateX(0%);
+    left: 5%;
+    color: #044ebe;
+    font-size: 1.5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.div1 {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.expbox:hover {
+    cursor: pointer;
+}
+
+.expbox.backclicked>.div1 {
+    position: absolute;
+    transition: all 0.3s ease-in-out;
+
+}
+
+#checkboxtoshowpass {
+    height: 20px;
+    width: 20px;
+}
+
+
+#dropdowntriangle {
+    font-size: 1rem;
+    padding-left: 13rem;
+    padding-top: 0.3rem;
+}
+
+@media screen and (max-width : 400px) {
+    .inputboxcss::placeholder {
+        font-size: 1.2rem;
+    }
+
+
+    .tickbox,
+    .strongpass {
+        font-size: 0.8rem;
+    }
+}
