@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/blogPage.css">
+</head>
+
+<body>
+    <div class="uppercontainer">
+        <ul class="nav justify-content-end fixedWidthContainer">
+            <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-horizontal-sm">
+                    <li class="list-group-item">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Username : </span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default" id="username">
+                        </div>
+                    </li>
+                    <!-- <li class="list-group-item" id="editusername">
+                        <button class="btn btn-primary" type="button" id="editusernamebtn">edit</button>
+                    </li>
+                    <li class="list-group-item" id="saveusername">
+                        <button class="btn btn-primary" type="button" id="saveusernamebtn">save</button>
+                    </li> -->
+                </ul>
+                <ul class="list-group list-group-horizontal-sm">
+                    <li class="list-group-item">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Email : </span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default" id="useremail">
+                        </div>
+                    </li>
+                    <li class="list-group-item" id="editemail">
+                        <button class="btn btn-primary" type="button" id="editemailbtn">edit</button>
+                    </li>
+                    <li class="list-group-item" id="saveemail">
+                        <button class="btn btn-primary" type="button" id="saveemailbtn">save</button>
+                    </li>
+                </ul>
+                <div class="d-grid gap-2 d-md-block">
+                    <button class="btn btn-primary" type="button" id="changepass">Change password</button>
+                    <button class="btn btn-primary" type="button" id="logout">logout</button>
+                    <button class="btn btn-primary" type="button" id="watchblog">Show Your Blogs</button>
+                    <button class="btn btn-primary" type="button" id="hideblog">Hide Your Blogs</button>
+                </div>
+                </li>
+            </ul>
+        </ul>
+    </div>
+    <div id="blogContainer" class="lowercontainer" style="padding-left: 5px; padding-right: 5px;">
+    </div>
+
+
+
+
+
+    <script>
+        let token = localStorage.getItem('tokendata');
+        let usernameforall = "null";
+        const username = document.getElementById('username');
+        const useremail = document.getElementById('useremail');
+        // const userpassword = document.getElementById('userpassword');
+        // const userquestion = document.getElementById('userquestion');
+        // const useranswer = document.getElementById('useranswer');
+        const logoutbutton = document.getElementById('logout');
+        const watchblog = document.getElementById('watchblog');
+        const hideblog = document.getElementById('hideblog');
+        document.addEventListener("DOMContentLoaded", function () {
+
+            username.disabled = true;
+            document.getElementById('useremail').disabled = true;
+            document.getElementById('saveemail').style.display = "none";
+            hideblog.style.display = "none";
+            fetch('/loginUserviaToken', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ token: token })
+            })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    usernameforall = data.userName;
+                    username.value = data.userName;
+                    useremail.value = data.userEmail;
+                    // userpassword.textContent = "Password: " + data.userPassword;
+                    // userquestion.textContent = "Security Question: " + data.userQuestion;
+                    // useranswer.textContent = "Security Answer: " + data.userAnswer;
+                })
+
+                .catch(error => {
+                    console.error('Login failed:', error);
+                });
+
+        });
+
+
+
+        watchblog.addEventListener('click', function (event) {
+            watchblog.style.display = "none";
+            hideblog.style.display = "block";
+            fetch('/getallposts')
+                .then(response => response.json())
+                .then(posts => {
+                    posts.forEach(post => {
+                        let newForm = document.createElement('form');
+                        newForm.className = 'inputTextFormclass';
+                        newForm.innerHTML = `
+                    <div class="card border-success mb-3" style="max-width: 60rem;">
+                        <div class="card-header bg-transparent border-success" name="username3333" >random</div>
+                        <div>
+                            <input type="text" class="form-control hidepublishbtn" placeholder="Write Your Blog Here" name="postcontent">
+                        </div>
+                        <div class="card-footer bg-transparent border-success">
+                            <button type="button" class="btn btn-primary posteditbtn" id="posteditbtn">edit</button>
+                            <button type="button" class="btn btn-primary postsavebtn" id="postsavebtn">save</button>
+                        </div>
+                    </div>`;
+
+                        if (post.username === usernameforall) {
+                            let blogContainer = document.getElementById('blogContainer');
+                            blogContainer.appendChild(newForm);
+                            newForm.querySelector('[name="postcontent"]').value = post.userpost;
+                            newForm.querySelector('[name="username3333"]').textContent = post.username;
+                            newForm.querySelector('[name="postcontent"]').disabled = true;
+                            const postsavebtn = newForm.querySelector('.postsavebtn');
+                            postsavebtn.style.display = "none";
+                            let editpost = "editpost";
+                            newForm.querySelector('.posteditbtn').addEventListener('click', function (event) {
+                                let postContentInput = newForm.querySelector('[name="postcontent"]');
+                                postContentInput.disabled = false;
+                                newForm.querySelector('.postsavebtn').style.display = "block";
+                            });
+
+                            // Add event listener to save button
+                            newForm.querySelector('.postsavebtn').addEventListener('click', function (event) {
+                                let postContentInput = newForm.querySelector('[name="postcontent"]');
+                                postContentInput.disabled = true;
+                                newForm.querySelector('.postsavebtn').style.display = "none";
+
+                                let updatedUser = {
+                                    id: post.id,
+                                    username: post.username,
+                                    userpost: postContentInput.value
+                                };
+
+                            
+                                let jsonData = JSON.stringify(updatedUser);
+
+                            
+                                let url = '/updatepost/' +   updatedUser.id; 
+
+                            
+                                fetch(url, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: jsonData
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error('Error updating post');
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(updatedPost => {
+                                        console.log('Post updated successfully:', updatedPost);
+                                        // Handle success response
+                                    })
+                                    .catch(error => {
+                                        console.error('Error updating post:', error);
+                                        // Handle error response
+                                    });
+
+                            });
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching posts:', error);
+                });
+        });
+
+
+
+
+
+        hideblog.addEventListener("click", function (event) {
+            watchblog.style.display = "block";
+            hideblog.style.display = "none";
+            let divElement = document.getElementById("blogContainer");
+            while (divElement.firstChild) {
+                divElement.removeChild(divElement.firstChild);
+            }
+
+        });
+
+        logoutbutton.addEventListener("click", function (event) {
+            localStorage.removeItem('tokendata');
+            window.location.replace('/home');
+        });
+
+        // document.getElementById('editusername').addEventListener('click' , function(event){
+        //     document.getElementById('editusername').style.display = "none";
+        //     document.getElementById('saveusername').style.display = "block";
+        // });
+        document.getElementById('editemail').addEventListener('click', function (event) {
+            document.getElementById('editemail').style.display = "none";
+            document.getElementById('saveemail').style.display = "block";
+            document.getElementById('useremail').disabled = false;
+
+        });
+
+
+        document.getElementById('saveemailbtn').addEventListener('click', function (event) {
+            document.getElementById('editemail').style.display = "block";
+            document.getElementById('saveemail').style.display = "none";
+            document.getElementById('useremail').disabled = true;
+
+            let _sendemail = useremail.value;
+            fetch(usernameforall, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userName: usernameforall, userEmail: _sendemail })
+            })
+                .then(data => {
+
+                    // useremail.value = data.userEmail;
+                })
+                .catch(error => {
+                    console.error('Login failed:', error);
+                });
+
+        });
+
+
+
+
+        const changepass = document.getElementById("changepass");
+        changepass.addEventListener('click' , function(event){
+            window.location.replace("/changepassword");
+        });
+
+
+
+    </script>
+</body>
+
+</html>
