@@ -1,0 +1,42 @@
+
+
+body {
+    background-color: rgb(248, 237, 222);
+}
+
+@media (min-width:1000px) {
+    .fixedWidthContainer {
+        margin: 0 auto;
+        width: 900px;
+    }
+}
+
+.lowercontainer{
+    margin-top: 20px;
+}
+
+.card{
+    margin: 0 auto;
+}
+
+.card-header{
+    text-align:end;
+
+}
+
+
+.card-footer{
+    display: flex;
+    justify-content: end;
+}
+
+
+#exampleFormControlInput1,
+#password{
+    transition: font-size 0.3s ease-in-out;
+}
+
+#exampleFormControlInput1:focus,
+#password:focus {
+    font-size: 22px;
+}
